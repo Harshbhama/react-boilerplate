@@ -16,7 +16,7 @@ import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-
+import LandingPage from 'containers/LandingPage/Loadable'
 import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
@@ -37,13 +37,13 @@ export default function App() {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-      <Header />
+      {/* <Header /> */}
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={LandingPage} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
       <GlobalStyle />
     </AppWrapper>
   );

@@ -17,6 +17,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import LandingPage from 'containers/LandingPage/Loadable'
+import LoginPage from 'containers/LoginPage/Loadable'
 import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
@@ -39,7 +40,7 @@ export default function App() {
       </Helmet>
       {/* <Header /> */}
       <Switch>
-        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/" component={LoginPage} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>

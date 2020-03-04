@@ -5,9 +5,10 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
-
+import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
+import axios from 'axios'
 
 /**
  * Github repos request/response handler
@@ -26,6 +27,28 @@ export function* getRepos() {
   }
 }
 
+export function* callUpload(data) {
+  debugger
+  console.log("in Call Upload")
+  // Select username from store
+  axios({
+    method: 'post',
+    url: 'http://localhost:4000/gst/upload',
+    data: data.uploadData,
+    headers: {
+      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzMzMzM3MywiZXhwIjoxNTgzMzQ3NzczfQ.Q1YFmq98CsHjCxv_5vKBhjDOHGbecfAcr537T6Zl9Ks",
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then(response => {
+    console.log('response ', response);
+
+
+  }).catch(error => {
+    console.log(error)
+  })
+}
+
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -34,5 +57,6 @@ export default function* githubData() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REPOS, getRepos);
+  // yield takeLatest(LOAD_REPOS, getRepos);
+  yield takeLatest(ON_CALL_UPLOAD, callUpload);
 }

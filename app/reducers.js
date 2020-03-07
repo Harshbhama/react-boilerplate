@@ -9,6 +9,7 @@ import history from 'utils/history';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import landingReducer from 'containers/LandingPage/reducer'
+import uploadReducer from 'containers/UploadPage/reducer'
 import { reducer as formReducer } from 'redux-form'
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -19,6 +20,7 @@ export default function createReducer(injectedReducers = {}) {
     global: globalReducer,
     language: languageProviderReducer,
     landingReducer: landingReducer,
+    uploadReducer: uploadReducer,
     router: connectRouter(history),
     ...injectedReducers,
   });

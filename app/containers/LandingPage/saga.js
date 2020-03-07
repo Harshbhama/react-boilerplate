@@ -28,7 +28,7 @@ export function* getRepos() {
 }
 
 export function* callUpload(data) {
-  debugger
+ 
   console.log("in Call Upload")
   // Select username from store
   axios({
@@ -36,7 +36,7 @@ export function* callUpload(data) {
     url: 'http://localhost:4000/gst/upload',
     data: data.uploadData,
     headers: {
-      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzMzMzM3MywiZXhwIjoxNTgzMzQ3NzczfQ.Q1YFmq98CsHjCxv_5vKBhjDOHGbecfAcr537T6Zl9Ks",
+      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI",
       'Content-Type': 'multipart/form-data'
     }
   }).then(response => {

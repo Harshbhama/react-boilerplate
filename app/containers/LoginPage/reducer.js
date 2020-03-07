@@ -8,18 +8,19 @@
  */
 
 import produce from 'immer';
-import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
 
 // The initial state of the App
 export const initialState = {
   username: '',
-  uploadData: ''
+  uploadData: '',
+  loginData: ''
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const landingReducer = (state = initialState, action) =>
   produce(state, draft => {
-    debugger
+ 
     switch (action.type) {
       case CHANGE_USERNAME:
         // Delete prefixed '@' from the github username
@@ -28,6 +29,10 @@ const landingReducer = (state = initialState, action) =>
 
       case ON_CALL_UPLOAD:
         draft.uploadData = action.uploadData
+        break;
+    
+      case ON_LOGIN_SUBMIT:
+        draft.loginData = action.loginData
         break;
     }
   });

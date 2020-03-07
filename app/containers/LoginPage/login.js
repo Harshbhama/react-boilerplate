@@ -13,14 +13,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+
+
 import { Field, reduxForm } from 'redux-form'
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="textSecondary" align="center" style={{color: 'white'}}>
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        GT Tax Pro
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -45,7 +47,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    borderRadius: '13px'
   },
+  multilineColor: {
+    color: 'black'
+  }
 }));
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
   // <TextField hintText={label}
@@ -63,6 +69,9 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     errorText={touched && error}
     {...input}
     {...custom}
+    InputLabelProps={{
+      style: { color: 'white' },
+    }}
   />
 )
 
@@ -71,44 +80,24 @@ const SignIn = props => {
   const classes = useStyles();
   const {handleSubmit} = props
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{marginLeft: '65%', marginTop: '10%', width: '50%'}}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" style={{position: 'relative'}}>
           Sign in
         </Typography>
         <form className={classes.form} onSubmit = {handleSubmit} >
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          /> */}
-          <Field name="email" component={renderTextField} label="Email Address" />
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          /> */}
-          <Field name="password" component={renderTextField} label="Password" />
+          <Field name="email" component={renderTextField} label="Email Address" style={{paddingTop: '6%'}}/>
+
+          <Field name="password" type = "password" component={renderTextField} label="Password" style={{paddingTop: '6%'}} />
+{/*           
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
@@ -118,7 +107,7 @@ const SignIn = props => {
           >
             Sign In
           </Button>
-          <Grid container>
+          <Grid container style={{position: 'relative'}}>
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
@@ -132,7 +121,7 @@ const SignIn = props => {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={8} style={{position: 'relative'}}>
         <Copyright />
       </Box>
     </Container>

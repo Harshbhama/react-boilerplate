@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
 
 
 /**
@@ -33,9 +33,15 @@ export function changeUsername(username) {
 }
 
 export function onCallUpload(payload){
-  debugger
+  
   return{
     type: ON_CALL_UPLOAD,
     uploadData: payload
   }
 }
+export function onLoginSubmit(payload){
+  return{
+    type: ON_LOGIN_SUBMIT,
+    loginData: payload
+  }
+} 

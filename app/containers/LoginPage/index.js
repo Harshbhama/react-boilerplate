@@ -29,7 +29,7 @@ import Input from './Input';
 import Section from './Section';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
-import { changeUsername, onCallUpload } from './actions';
+import { changeUsername, onCallUpload, onLoginSubmit } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -39,49 +39,20 @@ import styles from '../../style.css';
 import Button from '@material-ui/core/Button';
 import AdminNavbar from 'components/AdminNavbarLinks'
 import SignInSide from './login'
-// export function HomePage({
-//   username,
-//   loading,
-//   error,
-//   repos,
-//   onSubmitForm,
-//   onChangeUsername,
-// }) {
-//   useInjectReducer({ key, reducer });
-//   useInjectSaga({ key, saga });
+import gstLogin1 from 'images/gstLogin1.jpg'
+import gstLogin2 from 'images/gstLogin2.jpg'
+import gstLogin3 from 'images/gstLogin3.jpg'
+import LazyLoad from 'react-lazyload';
+import gtLogo from 'images/gt_logo.svg'
+import Typography from '@material-ui/core/Typography';
 
-//   useEffect(() => {
-//     // When initial state username is not null, submit the form to load repos
-//     if (username && username.trim().length > 0) onSubmitForm();
-//   }, []);
 
-//   const reposListProps = {
-//     loading,
-//     error,
-//     repos,
-//   };
-
-//   return (
-//     <article>
-//       <Helmet>
-//         <title>Home Page</title>
-//         <meta
-//           name="description"
-//           content="A React.js Boilerplate application homepage"
-//         />
-//       </Helmet>
-//       <div>
-//        <button onClick={this.onClickUpload()}>Upload</button>
-//       </div>
-//     </article>
-//   );
-// }
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.onUploadButton = this.onUploadButton.bind(this);
     this.onFileSelected = this.onFileSelected.bind(this);
-    this.onLoginSubmit  = this.onLoginSubmit.bind(this)
+    this.onLoginSubmitVal = this.onLoginSubmitVal.bind(this)
     this.state = {
       uploadFile: ''
     }
@@ -93,7 +64,7 @@ class LoginPage extends React.Component {
   }
 
   async onFileSelected(event) {
-    debugger
+   
     console.log(event.target.files[0]);
     await this.setState({
       uploadFile: event.target.files[0]
@@ -105,13 +76,14 @@ class LoginPage extends React.Component {
 
     await onCallUpload(data);
     await this.props.onCallUpload(data);
-   
+
   }
 
-  async onLoginSubmit(values){
-  
+  async onLoginSubmitVal(values) {
+
     console.log("here");
     console.log(values);
+    await this.props.onLoginSubmit(values);
     
   }
 
@@ -120,17 +92,21 @@ class LoginPage extends React.Component {
     return (
 
       <div>
-        <input
-          type="file"
-          name='upfile'
-          ref={"fileUploader"}
-          onChange={this.onFileSelected}
-          style={{ display: "none" }}
-        />
+        <LazyLoad>
+          <img src={gstLogin1} alt="Logo" style={{ position: 'absolute', marginLeft: '-268px', height: '640px', width: '1302px' }} />
+        </LazyLoad>
+        <img src={gtLogo} alt="Logo" style={{width: '22%', position: 'absolute', width: '22%',top: '16%', left: '10%'}} />
+        <Typography style={{position: 'absolute', color: 'white', fontSize: '48px', top: '41%', left: '12%', fontWeight: '500'}}>
+          GT Tax Pro
+        </Typography>
+        <Typography style={{position: 'absolute', color: 'white', fontSize: '20px', top: '53%', left: '161px'}}>
+          Gst Filing made easy
+
+        </Typography>
         <SignInSide
-        onSubmit = {this.onLoginSubmit}
+          onSubmit={this.onLoginSubmitVal}
         />
-        
+
       </div>
     )
   }
@@ -160,7 +136,8 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
-    onCallUpload: (data) => dispatch(onCallUpload(data))
+    onCallUpload: (data) => dispatch(onCallUpload(data)),
+    onLoginSubmit: (data) => dispatch(onLoginSubmit(data))
   };
 }
 

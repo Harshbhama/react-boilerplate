@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios'
+import Typography from '@material-ui/core/Typography';
+
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import injectSaga from 'utils/injectSaga';
@@ -37,43 +39,11 @@ import saga from './saga';
 const key = 'home';
 import styles from '../../style.css';
 import Button from '@material-ui/core/Button';
-// export function HomePage({
-//   username,
-//   loading,
-//   error,
-//   repos,
-//   onSubmitForm,
-//   onChangeUsername,
-// }) {
-//   useInjectReducer({ key, reducer });
-//   useInjectSaga({ key, saga });
+import AdminNavbar from 'components/AdminNavbarLinks'
+import Card from './Cards'
+import NavBar from 'components/SideBar/SideBar1'
+import gtLogo from 'images/gt_logo.svg'
 
-//   useEffect(() => {
-//     // When initial state username is not null, submit the form to load repos
-//     if (username && username.trim().length > 0) onSubmitForm();
-//   }, []);
-
-//   const reposListProps = {
-//     loading,
-//     error,
-//     repos,
-//   };
-
-//   return (
-//     <article>
-//       <Helmet>
-//         <title>Home Page</title>
-//         <meta
-//           name="description"
-//           content="A React.js Boilerplate application homepage"
-//         />
-//       </Helmet>
-//       <div>
-//        <button onClick={this.onClickUpload()}>Upload</button>
-//       </div>
-//     </article>
-//   );
-// }
 class LandingPage extends React.Component {
   constructor(props) {
     super(props);
@@ -102,41 +72,19 @@ class LandingPage extends React.Component {
 
     await onCallUpload(data);
     await this.props.onCallUpload(data);
-    // axios({
-    //   method: 'post',
-    //   url: 'http://localhost:4000/gst/upload',
-    //   data: data,
-    //   headers: {
-    //     'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE1ODMwNDE1NzgsImV4cCI6MTU4MzA1NTk3OH0.koCravP6LjICSgolM-QDV5Hqe8sY25JakGQH6CvLmr8",
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // }).then(response => {
-    //   console.log('response ', response);
 
-
-    // }).catch(error => {
-    //   console.log(error)
-    // })
   }
 
   render() {
     return (
 
       <div>
-
-        
-        {/* <button type="button" class="btn btn-primary">Upload</button> */}
-        <Button onClick={this.onUploadButton} variant="contained" color="primary">
-          Upload
-        </Button>
-
-        <input
-          type="file"
-          name='upfile'
-          ref={"fileUploader"}
-          onChange={this.onFileSelected}
-          style={{ display: "none" }}
-        />
+        <div style={{marginLeft: '-32%', marginTop: '1%'}}>
+        <img src={gtLogo} alt="Logo" style={{ width: '26%' }} />
+        </div>
+        <main>
+          <Card />
+        </main>
       </div>
     )
   }
@@ -156,7 +104,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
-const withSaga = injectSaga({ key: 'landingPage', saga });
+const withSaga = injectSaga({ key: 'LandingPage', saga });
 
 
 export function mapDispatchToProps(dispatch) {

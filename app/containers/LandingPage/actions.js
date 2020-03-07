@@ -33,7 +33,7 @@ export function changeUsername(username) {
 }
 
 export function onCallUpload(payload){
-  debugger
+  
   return{
     type: ON_CALL_UPLOAD,
     uploadData: payload

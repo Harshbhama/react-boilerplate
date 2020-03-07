@@ -13,13 +13,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-
-
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center" style={{color: 'white'}}>
+    <Typography
+      variant="body2"
+      color="textSecondary"
+      align="center"
+      style={{ color: 'white' }}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         GT Tax Pro
@@ -47,13 +50,18 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    borderRadius: '13px'
+    borderRadius: '13px',
   },
   multilineColor: {
-    color: 'black'
-  }
+    color: 'black',
+  },
 }));
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
   // <TextField hintText={label}
   //   floatingLabelText={label}
   //   errorText={touched && error}
@@ -73,27 +81,45 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
       style: { color: 'white' },
     }}
   />
-)
-
+);
 
 const SignIn = props => {
   const classes = useStyles();
-  const {handleSubmit} = props
+  const { handleSubmit } = props;
   return (
-    <Container component="main" maxWidth="xs" style={{marginLeft: '65%', marginTop: '10%', width: '50%'}}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{ marginLeft: '65%', marginTop: '10%', width: '50%' }}
+    >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{position: 'relative'}}>
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ position: 'relative' }}
+        >
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit = {handleSubmit} >
-          <Field name="email" component={renderTextField} label="Email Address" style={{paddingTop: '6%'}}/>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <Field
+            name="email"
+            component={renderTextField}
+            label="Email Address"
+            style={{ paddingTop: '6%' }}
+          />
 
-          <Field name="password" type = "password" component={renderTextField} label="Password" style={{paddingTop: '6%'}} />
-{/*           
+          <Field
+            name="password"
+            type="password"
+            component={renderTextField}
+            label="Password"
+            style={{ paddingTop: '6%' }}
+          />
+          {/*           
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -107,7 +133,7 @@ const SignIn = props => {
           >
             Sign In
           </Button>
-          <Grid container style={{position: 'relative'}}>
+          <Grid container style={{ position: 'relative' }}>
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
@@ -121,13 +147,13 @@ const SignIn = props => {
           </Grid>
         </form>
       </div>
-      <Box mt={8} style={{position: 'relative'}}>
+      <Box mt={8} style={{ position: 'relative' }}>
         <Copyright />
       </Box>
     </Container>
   );
-}
+};
 export default reduxForm({
-  form: 'SignIn',  // a unique identifier for this form
-})(SignIn)
+  form: 'SignIn', // a unique identifier for this form
+})(SignIn);
 // export default SignIn

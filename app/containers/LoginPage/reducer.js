@@ -14,13 +14,12 @@ import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
 export const initialState = {
   username: '',
   uploadData: '',
-  loginData: ''
+  loginData: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const landingReducer = (state = initialState, action) =>
   produce(state, draft => {
- 
     switch (action.type) {
       case CHANGE_USERNAME:
         // Delete prefixed '@' from the github username
@@ -28,11 +27,11 @@ const landingReducer = (state = initialState, action) =>
         break;
 
       case ON_CALL_UPLOAD:
-        draft.uploadData = action.uploadData
+        draft.uploadData = action.uploadData;
         break;
-    
+
       case ON_LOGIN_SUBMIT:
-        draft.loginData = action.loginData
+        draft.loginData = action.loginData;
         break;
     }
   });

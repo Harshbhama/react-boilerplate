@@ -17,7 +17,6 @@
 
 import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
 
-
 /**
  * Changes the input field of the form
  *
@@ -32,10 +31,9 @@ export function changeUsername(username) {
   };
 }
 
-export function onCallUpload(payload){
-  
-  return{
+export function onCallUpload(payload) {
+  return {
     type: ON_CALL_UPLOAD,
-    uploadData: payload
-  }
+    uploadData: payload,
+  };
 }

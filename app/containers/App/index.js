@@ -16,10 +16,10 @@ import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import UploadPage from 'containers/UploadPage/Loadable'
-import LoginPage from 'containers/LoginPage/Loadable'
+import UploadPage from 'containers/UploadPage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
+import LandingPage from 'containers/LandingPage/Loadable';
 import GlobalStyle from '../../global-styles';
-import LandingPage from 'containers/LandingPage/Loadable'
 
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);

@@ -11,12 +11,12 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import axios from 'axios'
+import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
-import injectSaga from 'utils/injectSaga';
+import injectSaga, { useInjectSaga } from 'utils/injectSaga';
+
 import {
   makeSelectRepos,
   makeSelectLoading,
@@ -24,6 +24,10 @@ import {
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
+import Button from '@material-ui/core/Button';
+import AdminNavbar from 'components/AdminNavbarLinks';
+import NavBar from 'components/SideBar/SideBar1';
+import gtLogo from 'images/gt_logo.svg';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -35,14 +39,10 @@ import { changeUsername, onCallUpload } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import styles from '../../style.css';
+import Card from './Cards';
 // import Button from 'react-bootstrap/Button';
 const key = 'home';
-import styles from '../../style.css';
-import Button from '@material-ui/core/Button';
-import AdminNavbar from 'components/AdminNavbarLinks'
-import Card from './Cards'
-import NavBar from 'components/SideBar/SideBar1'
-import gtLogo from 'images/gt_logo.svg'
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -51,9 +51,8 @@ class LandingPage extends React.Component {
     this.onFileSelected = this.onFileSelected.bind(this);
 
     this.state = {
-      uploadFile: ''
-    }
-
+      uploadFile: '',
+    };
   }
 
   onUploadButton() {
@@ -63,8 +62,8 @@ class LandingPage extends React.Component {
   async onFileSelected(event) {
     console.log(event.target.files[0]);
     await this.setState({
-      uploadFile: event.target.files[0]
-    })
+      uploadFile: event.target.files[0],
+    });
     const data = new FormData();
     await data.append('upfile', this.state.uploadFile);
     // data.append('type', owner);
@@ -72,21 +71,19 @@ class LandingPage extends React.Component {
 
     await onCallUpload(data);
     await this.props.onCallUpload(data);
-
   }
 
   render() {
     return (
-
       <div>
-        <div style={{marginLeft: '-32%', marginTop: '1%'}}>
-        <img src={gtLogo} alt="Logo" style={{ width: '26%' }} />
+        <div style={{ marginLeft: '-32%', marginTop: '1%' }}>
+          <img src={gtLogo} alt="Logo" style={{ width: '26%' }} />
         </div>
         <main>
           <Card />
         </main>
       </div>
-    )
+    );
   }
 }
 LandingPage.propTypes = {
@@ -106,7 +103,6 @@ const mapStateToProps = createStructuredSelector({
 });
 const withSaga = injectSaga({ key: 'LandingPage', saga });
 
-
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
@@ -114,14 +110,13 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
-    onCallUpload: (data) => dispatch(onCallUpload(data))
+    onCallUpload: data => dispatch(onCallUpload(data)),
   };
 }
 
-
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 );
 
 export default compose(

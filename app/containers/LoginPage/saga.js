@@ -5,12 +5,12 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
-import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
-import axios from 'axios'
-import { saveLocalStorage, getToken } from 'components/Helper/Helper'
-import { push } from 'connected-react-router'
+import axios from 'axios';
+import { saveLocalStorage, getToken } from 'components/Helper/Helper';
+import { push } from 'connected-react-router';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
 // import { onLoginSubmit } from './actions';
 
 /**
@@ -31,52 +31,54 @@ export function* getRepos() {
 }
 
 export function* callUpload(data) {
-
-  console.log("in Call Upload")
+  console.log('in Call Upload');
   // Select username from store
   axios({
     method: 'post',
     url: 'http://localhost:4000/gst/upload',
     data: data.uploadData,
     headers: {
-      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE1ODMzMDMzNjUsImV4cCI6MTU4MzMxNzc2NX0._MivpZKvH7sRzbHD6aZ8RGM8qNJ5cEPwTt2NTEONqqQ",
-      'Content-Type': 'multipart/form-data'
-    }
-  }).then(response => {
-    console.log('response ', response);
-
-
-  }).catch(error => {
-    console.log(error)
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE1ODMzMDMzNjUsImV4cCI6MTU4MzMxNzc2NX0._MivpZKvH7sRzbHD6aZ8RGM8qNJ5cEPwTt2NTEONqqQ',
+      'Content-Type': 'multipart/form-data',
+    },
   })
+    .then(response => {
+      console.log('response ', response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 export function* onLoginSubmit(data) {
-
   console.log(data.loginData);
 
   axios({
     method: 'post',
     url: 'http://localhost:4000/user/authenticate',
-    data: data.loginData
-  }).then(response => {
-    console.log('response ', response);
-    if (!_.isEmpty(response) && typeof response.data !== 'undefined' && !_.isEmpty(response.data) && response.data.error !== 1) {
-      let loginDetails = {
-        token: response.data.token
-      }
-      saveLocalStorage('loginDetails', loginDetails);
-  
-    }
-    else if (response.data.error === 1) {
-     console.log(response.data.data);
-    }
-
-  }).catch(error => {
-    console.log(error)
+    data: data.loginData,
   })
+    .then(response => {
+      console.log('response ', response);
+      if (
+        !_.isEmpty(response) &&
+        typeof response.data !== 'undefined' &&
+        !_.isEmpty(response.data) &&
+        response.data.error !== 1
+      ) {
+        const loginDetails = {
+          token: response.data.token,
+        };
+        saveLocalStorage('loginDetails', loginDetails);
+      } else if (response.data.error === 1) {
+        console.log(response.data.data);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
-
 
 /**
  * Root saga manages watcher lifecycle
@@ -88,5 +90,5 @@ export default function* githubData() {
   // It will be cancelled automatically on component unmount
   // yield takeLatest(LOAD_REPOS, getRepos);
   yield takeLatest(ON_CALL_UPLOAD, callUpload);
-  yield takeLatest(ON_LOGIN_SUBMIT, onLoginSubmit)
+  yield takeLatest(ON_LOGIN_SUBMIT, onLoginSubmit);
 }

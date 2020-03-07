@@ -17,10 +17,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Link, withRouter } from 'react-router-dom';
-import { Switch, Route } from 'react-router-dom';
-import gtLogo from 'images/gt_logo.svg'
-import routes from '../routes'
+import { Link, withRouter, Switch, Route } from 'react-router-dom';
+
+import gtLogo from 'images/gt_logo.svg';
+import routes from '../routes';
 
 const drawerWidth = 240;
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: '#4f2d7f'
+    backgroundColor: '#4f2d7f',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PersistentDrawerLeft(props) {
   function activeRoute(routeName) {
-    return window.location.href.indexOf(routeName) > -1 ? true : false;
+    return window.location.href.indexOf(routeName) > -1;
   }
   const classes = useStyles();
   const theme = useTheme();
@@ -133,10 +133,14 @@ export default function PersistentDrawerLeft(props) {
       >
         <div className={classes.drawerHeader}>
           <div>
-          <img src={gtLogo} alt="Logo" style={{width: '80%'}} />
+            <img src={gtLogo} alt="Logo" style={{ width: '80%' }} />
           </div>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
@@ -151,10 +155,6 @@ export default function PersistentDrawerLeft(props) {
             </ListItem>
           ))}
         </List>
-
-
-
-
 
         <Divider />
         {/* <List>
@@ -197,7 +197,6 @@ export default function PersistentDrawerLeft(props) {
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </main> */}
-
     </div>
   );
 }

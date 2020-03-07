@@ -5,10 +5,10 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
-import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
-import axios from 'axios'
+import axios from 'axios';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
 
 /**
  * Github repos request/response handler
@@ -28,26 +28,25 @@ export function* getRepos() {
 }
 
 export function* callUpload(data) {
-  
-  console.log("in Call Upload")
+  console.log('in Call Upload');
   // Select username from store
   axios({
     method: 'post',
     url: 'http://localhost:4000/gst/upload',
     data: data.uploadData,
     headers: {
-      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI",
-      'Content-Type': 'multipart/form-data'
-    }
-  }).then(response => {
-    console.log('response ', response);
-
-
-  }).catch(error => {
-    console.log(error)
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI',
+      'Content-Type': 'multipart/form-data',
+    },
   })
+    .then(response => {
+      console.log('response ', response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
-
 
 /**
  * Root saga manages watcher lifecycle

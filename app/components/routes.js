@@ -16,14 +16,14 @@
 
 */
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
+import Dashboard from '@material-ui/icons/Dashboard';
+import Person from '@material-ui/icons/Person';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import BubbleChart from '@material-ui/icons/BubbleChart';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Notifications from '@material-ui/icons/Notifications';
+import Unarchive from '@material-ui/icons/Unarchive';
+import Language from '@material-ui/icons/Language';
 // core components/views for Admin layout
 // import DashboardPage from "views/Dashboard/Dashboard.js";
 // import UserProfile from "views/UserProfile/UserProfile.js";
@@ -35,29 +35,24 @@ import Language from "@material-ui/icons/Language";
 // import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.js";
-import LoginPage from 'containers/LoginPage/Loadable'
+import LoginPage from 'containers/LoginPage/Loadable';
 const dashboardRoutes = [
   {
-    path: "/upload",
-    name: "Upload Form D",
-  
+    path: '/upload',
+    name: 'Upload Form D',
   },
   {
-    path: "/uploadListing",
-    name: "Processed Invoices",
- 
+    path: '/uploadListing',
+    name: 'Processed Invoices',
   },
   {
-    path: "/editErrors",
-    name: "Failed Invoices",
+    path: '/editErrors',
+    name: 'Failed Invoices',
   },
   {
-    path: "/",
-    name: "Logout",
-  }
-
-
-  
+    path: '/',
+    name: 'Logout',
+  },
 ];
 
 export default dashboardRoutes;

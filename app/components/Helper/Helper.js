@@ -1,21 +1,24 @@
-import React from 'react'
+import React from 'react';
 
 export const saveLocalStorage = (key, values) => {
-  var data = []
+  const data = [];
   data.push(values);
   localStorage.setItem(key, JSON.stringify(data));
-  console.log(data)
-}
+  console.log(data);
+};
 
-export const getLocalStorage = (key) => {
-  var test = localStorage.getItem(key);
-  var data = JSON.parse(localStorage.getItem(key));
-  if (typeof data !== 'undefined' && data !== null && typeof data[0] !== 'undefined') {
+export const getLocalStorage = key => {
+  const test = localStorage.getItem(key);
+  const data = JSON.parse(localStorage.getItem(key));
+  if (
+    typeof data !== 'undefined' &&
+    data !== null &&
+    typeof data[0] !== 'undefined'
+  ) {
     return data[0];
   }
   return [];
 };
-
 
 export const getToken = () => {
   if (!_.isEmpty(getLocalStorage('loginDetails')))

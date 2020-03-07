@@ -10,4 +10,4 @@
  */
 
 export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
-export const ON_CALL_UPLOAD = 'boilerplate/Landing/ON_CALL_UPLOAD'
+export const ON_CALL_UPLOAD = 'boilerplate/Landing/ON_CALL_UPLOAD';

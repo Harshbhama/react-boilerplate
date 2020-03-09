@@ -37,9 +37,10 @@ export function onCallUpload(payload) {
     uploadData: payload,
   };
 }
-export function onLoginSubmit(payload) {
+export function onLoginSubmit(values, history) {
   return {
     type: ON_LOGIN_SUBMIT,
-    loginData: payload,
+    loginData: values,
+    history: history
   };
 }

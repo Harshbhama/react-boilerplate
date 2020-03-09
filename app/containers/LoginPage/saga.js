@@ -51,15 +51,17 @@ export function* callUpload(data) {
     });
 }
 
-export function* onLoginSubmit(data) {
-  console.log(data.loginData);
-
+export function* onLoginSubmit(value) {
+  console.log(value.loginData);
+  console.log(value.history);
   axios({
     method: 'post',
     url: 'http://localhost:4000/user/authenticate',
-    data: data.loginData,
+    data: value.loginData,
   })
+  // value.history.push('/landing')
     .then(response => {
+      history.push('/landing')
       console.log('response ', response);
       if (
         !_.isEmpty(response) &&

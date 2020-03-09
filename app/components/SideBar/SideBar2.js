@@ -2,10 +2,10 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,10 +17,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Link, withRouter, Switch, Route } from 'react-router-dom';
-
-import gtLogo from 'images/gt_logo.svg';
 import routes from '../routes';
+import { Link, withRouter, Switch, Route } from 'react-router-dom';
+import gtLogo from 'images/gt_logo.svg';
 
 const drawerWidth = 240;
 
@@ -29,22 +28,23 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     backgroundColor: '#4f2d7f',
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: 36,
   },
   hide: {
     display: 'none',
@@ -52,39 +52,40 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    whiteSpace: 'nowrap',
   },
-  drawerPaper: {
+  drawerOpen: {
     width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
-  drawerHeader: {
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9) + 1,
+    },
+  },
+  toolbar: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
   },
 }));
 
-export default function PersistentDrawerLeft(props) {
-  function activeRoute(routeName) {
-    return window.location.href.indexOf(routeName) > -1;
-  }
+export default function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -112,7 +113,9 @@ export default function PersistentDrawerLeft(props) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, {
+              [classes.hide]: open,
+            })}
           >
             <MenuIcon />
           </IconButton>
@@ -121,33 +124,31 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-
       <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
         classes={{
-          paper: classes.drawerPaper,
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
         }}
       >
-        <div className={classes.drawerHeader}>
+        <div className={classes.toolbar}>
           <div>
             <img src={gtLogo} alt="Logo" style={{ width: '80%' }} />
           </div>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
-
         <List>
           {routes.map((prop, index) => (
-            <ListItem key={prop.name} component={Link} to={prop.path}>
+            <ListItem key={prop.name} component={Link} to={prop.path} style={{textDecoration: 'none'}}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -155,18 +156,9 @@ export default function PersistentDrawerLeft(props) {
             </ListItem>
           ))}
         </List>
-
-        <Divider />
-      
       </Drawer>
-
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-       
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
         {props.children}
       </main>
     </div>

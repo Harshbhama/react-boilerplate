@@ -36,6 +36,8 @@ export default function MediaCard() {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+        width: '120%',
+        marginLeft: '-7%'
       }}
     >
       <Card className="card-1" style={{ marginTop: '10%' }}>

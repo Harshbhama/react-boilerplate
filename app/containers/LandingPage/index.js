@@ -25,8 +25,8 @@ import {
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import Button from '@material-ui/core/Button';
-import AdminNavbar from 'components/AdminNavbarLinks';
-import NavBar from 'components/SideBar/SideBar1';
+
+
 import gtLogo from 'images/gt_logo.svg';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
@@ -41,8 +41,13 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from '../../style.css';
 import Card from './Cards';
+import NavBar from 'components/SideBar/SideBar2';
+import PaperBase from 'components/PaperBase/PaperBase'
+import Navigator from 'components/PaperBase/Navigator'
+
 // import Button from 'react-bootstrap/Button';
 const key = 'home';
+const drawerWidth = 256;
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -76,12 +81,12 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginLeft: '-32%', marginTop: '1%' }}>
-          <img src={gtLogo} alt="Logo" style={{ width: '26%' }} />
-        </div>
-        <main>
+     
+
+        <NavBar currentPage="Choose Module">
           <Card />
-        </main>
+        </NavBar>
+   
       </div>
     );
   }

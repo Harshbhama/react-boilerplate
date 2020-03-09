@@ -15,6 +15,7 @@ export const initialState = {
   username: '',
   uploadData: '',
   loginData: '',
+  history: ''
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -32,6 +33,7 @@ const landingReducer = (state = initialState, action) =>
 
       case ON_LOGIN_SUBMIT:
         draft.loginData = action.loginData;
+        draft.history = action.history
         break;
     }
   });

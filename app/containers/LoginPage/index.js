@@ -23,7 +23,7 @@ import {
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import Button from '@material-ui/core/Button';
-import AdminNavbar from 'components/AdminNavbarLinks';
+
 import gstLogin1 from 'images/gstLogin1.jpg';
 import gstLogin2 from 'images/gstLogin2.jpg';
 import gstLogin3 from 'images/gstLogin3.jpg';
@@ -43,8 +43,19 @@ import reducer from './reducer';
 import saga from './saga';
 import styles from '../../style.css';
 import SignInSide from './login';
+import { Link, withRouter } from "react-router-dom";
+import CrossfadeImage from 'react-crossfade-image'
 // import Button from 'react-bootstrap/Button';
 const key = 'home';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import SmoothImage from 'react-smooth-image'
+import ImageFadeIn from 'react-image-fade-in'
+
+const images = [
+  gstLogin1, gstLogin2, gstLogin3
+]
+
+
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -54,7 +65,30 @@ class LoginPage extends React.Component {
     this.onLoginSubmitVal = this.onLoginSubmitVal.bind(this);
     this.state = {
       uploadFile: '',
+      imageIndex: 0,
+      loaded: false
     };
+  }
+
+  async componentDidMount() {
+    this.interval = setInterval(() => {
+
+      //this.props.weatherStatus(false)
+      if (this.state.imageIndex === 2) {
+        this.setState({
+          imageIndex: 0
+        })
+      }
+      else {
+        this.setState({
+          imageIndex: this.state.imageIndex + 1
+        })
+
+      }
+
+
+    }, 5000)
+    console.log(images)
   }
 
   onUploadButton() {
@@ -62,6 +96,7 @@ class LoginPage extends React.Component {
   }
 
   async onFileSelected(event) {
+
     console.log(event.target.files[0]);
     await this.setState({
       uploadFile: event.target.files[0],
@@ -76,26 +111,44 @@ class LoginPage extends React.Component {
   }
 
   async onLoginSubmitVal(values) {
+    const { history } = this.props
     console.log('here');
     console.log(values);
-    await this.props.onLoginSubmit(values);
+    await this.props.onLoginSubmit(values, history);
+    history.push('/landing')
   }
 
   render() {
     return (
       <div>
-        <LazyLoad>
-          <img
-            src={gstLogin1}
-            alt="Logo"
-            style={{
-              position: 'absolute',
-              marginLeft: '-268px',
-              height: '640px',
-              width: '1302px',
-            }}
-          />
-        </LazyLoad>
+        {/* <LazyLoad>
+        <img
+          src={images[this.state.imageIndex]}
+          alt="Logo"
+          style={{
+            position: 'absolute',
+            marginLeft: '-268px',
+            height: '640px',
+            width: '1302px',
+            top: '0px'
+          }}
+        />
+        </LazyLoad> */}
+        {/* <ImageFadeIn 
+          src={images[this.state.imageIndex]}
+          alt="Logo"
+          style={{
+            position: 'absolute',
+            marginLeft: '-268px',
+            height: '640px',
+            width: '1302px',
+            top: '0px'
+          }}
+          opacityTransition={10}
+        />
+         */}
+        
+
         <img
           src={gtLogo}
           alt="Logo"
@@ -106,6 +159,19 @@ class LoginPage extends React.Component {
             top: '16%',
             left: '10%',
           }}
+        />
+        <CrossfadeImage
+          src={images[this.state.imageIndex]}
+          duration={4000}
+          timingFunction={"ease-out"}
+          style={{
+            position: 'absolute',
+            marginLeft: '-268px',
+            height: '640px',
+            width: '1302px',
+            top: '0px'
+          }}
+         
         />
         <Typography
           style={{
@@ -160,7 +226,7 @@ export function mapDispatchToProps(dispatch) {
       dispatch(loadRepos());
     },
     onCallUpload: data => dispatch(onCallUpload(data)),
-    onLoginSubmit: data => dispatch(onLoginSubmit(data)),
+    onLoginSubmit: (data, history) => dispatch(onLoginSubmit(data, history)),
   };
 }
 
@@ -173,4 +239,5 @@ export default compose(
   withConnect,
   withSaga,
   memo,
+  withRouter
 )(LoginPage);

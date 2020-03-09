@@ -25,8 +25,8 @@ import {
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import Button from '@material-ui/core/Button';
-import AdminNavbar from 'components/AdminNavbarLinks';
-import NavBar from 'components/SideBar/SideBar1';
+
+import NavBar from 'components/SideBar/SideBar2';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -75,7 +75,7 @@ class UploadPage extends React.Component {
   render() {
     return (
       <div>
-        <NavBar currentPage="Upload Form D" />
+        <NavBar currentPage="Upload Form D" >
         <input
           type="file"
           name="upfile"
@@ -83,7 +83,7 @@ class UploadPage extends React.Component {
           onChange={this.onFileSelected}
           style={{ display: 'none' }}
         />
-        <main style={{ paddingTop: '10%' }}>
+    
           <Button
             variant="contained"
             color="primary"
@@ -93,7 +93,7 @@ class UploadPage extends React.Component {
             Upload Form D
           </Button>
 
-          {/* <Typography paragraph>
+          <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
             facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
@@ -115,8 +115,9 @@ class UploadPage extends React.Component {
             tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
             nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
             accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> */}
-        </main>
+        </Typography>
+        
+        </NavBar>
       </div>
     );
   }

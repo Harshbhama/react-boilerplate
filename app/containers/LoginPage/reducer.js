@@ -8,14 +8,15 @@
  */
 
 import produce from 'immer';
-import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT, ON_AUTH } from './constants';
 
 // The initial state of the App
 export const initialState = {
   username: '',
   uploadData: '',
   loginData: '',
-  history: ''
+  history: '',
+  auth: false
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -34,6 +35,10 @@ const landingReducer = (state = initialState, action) =>
       case ON_LOGIN_SUBMIT:
         draft.loginData = action.loginData;
         draft.history = action.history
+        break;
+
+      case ON_AUTH:
+        draft.auth = action.auth
         break;
     }
   });

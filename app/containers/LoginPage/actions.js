@@ -14,8 +14,11 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
+import axios from 'axios';
 
-import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
+import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT, ON_AUTH } from './constants';
+
+import { saveLocalStorage, getToken } from 'components/Helper/Helper';
 
 /**
  * Changes the input field of the form
@@ -37,10 +40,56 @@ export function onCallUpload(payload) {
     uploadData: payload,
   };
 }
-export function onLoginSubmit(values, history) {
+// export function onLoginSubmit(values, history) {
+//   return {
+//     type: ON_LOGIN_SUBMIT,
+//     loginData: values,
+//     history: history
+//   };
+// }
+
+export function onAuth(value) {
   return {
-    type: ON_LOGIN_SUBMIT,
-    loginData: values,
-    history: history
-  };
+    type: ON_AUTH,
+    auth: value
+  }
+}
+
+export const onLoginSubmit = (values, history) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'http://localhost:4000/user/authenticate',
+        data: values,
+      })
+        // value.history.push('/landing')
+        .then(response => {
+
+          console.log('response ', response);
+          if (
+            !_.isEmpty(response) &&
+            typeof response.data !== 'undefined' &&
+            !_.isEmpty(response.data) &&
+            response.data.error !== 1
+          ) {
+            const loginDetails = {
+              token: response.data.token,
+            };
+            saveLocalStorage('loginDetails', loginDetails);
+            history.push('/landing')
+            dispatch(onAuth(true))
+            // yield put(onAuth(true));
+
+          } else if (response.data.error === 1) {
+            console.log(response.data.data);
+          }
+          resolve(true);
+        })
+        .catch(error => {
+          console.log(error);
+          reject(true)
+        });
+    });
+  }
 }

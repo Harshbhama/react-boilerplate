@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
   useEffect(() => {
     // Update the document title using the browser API
@@ -40,7 +40,7 @@ export default function MediaCard() {
         marginLeft: '-7%'
       }}
     >
-      <Card className="card-1" style={{ marginTop: '10%' }}>
+      <Card className="card-1" style={{ marginTop: '10%' }} onClick = {props.onEinvoiceClick}>
         <CardActionArea>
           <CardMedia
             className={classes.media}

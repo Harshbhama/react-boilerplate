@@ -12,3 +12,4 @@
 export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
 export const ON_CALL_UPLOAD = 'boilerplate/Login/ON_CALL_UPLOAD';
 export const ON_LOGIN_SUBMIT = 'boilerplate/Login/ON_LOGIN_SUBMIT';
+export const ON_AUTH = 'boilerplate/Login/ON_AUTH'

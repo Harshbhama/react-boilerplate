@@ -137,7 +137,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
-const withSaga = injectSaga({ key: 'UploadPage', saga });
+// const withSaga = injectSaga({ key: 'UploadPage', saga });
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -157,6 +157,6 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  withSaga,
+  // withSaga,
   memo,
 )(UploadPage);

@@ -19,6 +19,7 @@ import {
   makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
+
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
@@ -38,7 +39,7 @@ import Section from './Section';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
 import { changeUsername, onCallUpload, onLoginSubmit } from './actions';
-import { makeSelectUsername } from './selectors';
+import { makeSelectUsername, makeAuth } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import styles from '../../style.css';
@@ -115,7 +116,8 @@ class LoginPage extends React.Component {
     console.log('here');
     console.log(values);
     await this.props.onLoginSubmit(values, history);
-    history.push('/landing')
+    //history.push('/landing')
+    console.log(this.props.auth);
   }
 
   render() {
@@ -177,10 +179,10 @@ class LoginPage extends React.Component {
           style={{
             position: 'absolute',
             color: 'white',
-            fontSize: '48px',
+            fontSize: '50px',
             top: '41%',
             left: '12%',
-            fontWeight: '500',
+            fontWeight: '600',
           }}
         >
           GT Tax Pro
@@ -210,13 +212,22 @@ LoginPage.propTypes = {
   onChangeUsername: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
-const withSaga = injectSaga({ key: 'loginPage', saga });
+// const mapStateToProps = createStructuredSelector({
+//   repos: makeSelectRepos(),
+//   username: makeSelectUsername(),
+//   loading: makeSelectLoading(),
+//   error: makeSelectError(),
+//   auth: makeAuth()
+// });
+
+const mapStateToProps = (state) => {
+  debugger
+ return({
+   auth: state.loginReducer.auth
+ })
+}
+// };
+// const withSaga = injectSaga({ key: 'loginPage', saga });
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -237,7 +248,7 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  withSaga,
+  
   memo,
   withRouter
 )(LoginPage);

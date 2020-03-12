@@ -148,12 +148,22 @@ export default function MiniDrawer(props) {
         <Divider />
         <List>
           {routes.map((prop, index) => (
-            <ListItem key={prop.name} component={Link} to={prop.path} style={{textDecoration: 'none'}}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={prop.name} />
-            </ListItem>
+            props.fromPage !== "Landing" ?
+              <ListItem key={prop.name} component={Link} to={prop.path} style={{ textDecoration: 'none' }}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={prop.name} />
+              </ListItem>
+              :
+              index === 3 &&
+              <ListItem key={prop.name} component={Link} to={prop.path} style={{ textDecoration: 'none' }}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={prop.name} />
+              </ListItem>
+
           ))}
         </List>
       </Drawer>

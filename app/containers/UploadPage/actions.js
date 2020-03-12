@@ -31,9 +31,33 @@ export function changeUsername(username) {
   };
 }
 
-export function onCallUpload(payload) {
-  return {
-    type: ON_CALL_UPLOAD,
-    uploadData: payload,
-  };
+// export function onCallUpload(payload) {
+//   return {
+//     type: ON_CALL_UPLOAD,
+//     uploadData: payload,
+//   };
+// }
+export const onCallUpload = (payload) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'http://localhost:4000/gst/upload',
+        data: data.uploadData,
+        headers: {
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI',
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then(response => {
+          console.log('response ', response);
+          resolve(true)
+        })
+        .catch(error => {
+          console.log(error);
+          reject(true)
+        });
+    });
+  }
 }

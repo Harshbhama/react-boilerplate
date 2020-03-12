@@ -44,6 +44,7 @@ import Card from './Cards';
 import NavBar from 'components/SideBar/SideBar2';
 import PaperBase from 'components/PaperBase/PaperBase'
 import Navigator from 'components/PaperBase/Navigator'
+import { Link, withRouter } from "react-router-dom";
 
 // import Button from 'react-bootstrap/Button';
 const key = 'home';
@@ -58,6 +59,7 @@ class LandingPage extends React.Component {
     this.state = {
       uploadFile: '',
     };
+    this.onEinvoiceClick = this.onEinvoiceClick.bind(this)
   }
 
   onUploadButton() {
@@ -77,14 +79,18 @@ class LandingPage extends React.Component {
     await onCallUpload(data);
     await this.props.onCallUpload(data);
   }
-
+  async onEinvoiceClick(){
+    console.log("in E invoice")
+    const {history} = this.props
+    history.push('/upload')
+  }
   render() {
     return (
       <div>
-     
-
-        <NavBar currentPage="Choose Module">
-          <Card />
+        <NavBar currentPage="Choose Module" fromPage = "Landing">
+          <Card 
+          onEinvoiceClick = {this.onEinvoiceClick}
+          />
         </NavBar>
    
       </div>
@@ -106,7 +112,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
-const withSaga = injectSaga({ key: 'LandingPage', saga });
+//const withSaga = injectSaga({ key: 'LandingPage', saga });
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -126,6 +132,7 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  withSaga,
+  // withSaga,
   memo,
+  withRouter
 )(LandingPage);

@@ -3,9 +3,9 @@
  */
 
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
+import { initialState, auth } from './reducer';
 
-const selectHome = state => state.home || initialState;
+const selectHome = state => state.login || initialState || auth;
 
 const makeSelectUsername = () =>
   createSelector(
@@ -13,4 +13,10 @@ const makeSelectUsername = () =>
     homeState => homeState.username,
   );
 
-export { selectHome, makeSelectUsername };
+  const makeAuth = () =>
+  createSelector(
+    selectHome,
+    homeState => homeState.auth,
+  );
+
+export { selectHome, makeSelectUsername, makeAuth };

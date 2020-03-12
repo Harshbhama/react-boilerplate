@@ -68,6 +68,7 @@ function App( {location} ) {
             <Route exact path="/" component={LoginPage} />
             <Route path="/upload" component={UploadPage} />
             <Route path="/landing" component={LandingPage} />
+            <Route path="/homePage" component={HomePage} />
             <Route path="" component={NotFoundPage} />
           </Switch>
         </CSSTransition>

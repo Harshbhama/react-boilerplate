@@ -2,7 +2,7 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call,fork, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 import request from 'utils/request';
@@ -11,7 +11,8 @@ import axios from 'axios';
 import { saveLocalStorage, getToken } from 'components/Helper/Helper';
 import { push } from 'connected-react-router';
 import { CHANGE_USERNAME, ON_CALL_UPLOAD, ON_LOGIN_SUBMIT } from './constants';
-// import { onLoginSubmit } from './actions';
+import { onAuth } from 'containers/LoginPage/actions'
+
 
 /**
  * Github repos request/response handler
@@ -51,35 +52,116 @@ export function* callUpload(data) {
     });
 }
 
+export function* getData(value){
+  // axios({
+  //   method: 'post',
+  //   url: 'http://localhost:4000/user/authenticate',
+  //   data: value.loginData,
+  // })
+  //   // value.history.push('/landing')
+  //   .then(response => {
+
+  //     console.log('response ', response);
+  //     if (
+  //       !_.isEmpty(response) &&
+  //       typeof response.data !== 'undefined' &&
+  //       !_.isEmpty(response.data) &&
+  //       response.data.error !== 1
+  //     ) {
+  //     return(response);
+
+  //     } else if (response.data.error === 1) {
+  //      throw(response.data)
+  //     }
+  //   })
+  const requestURL = 'http://localhost:4000/user/authenticate'
+  try {
+    // Call our request helper (see 'utils/request')
+    const repos = yield call(request, requestURL,{
+    method: 'post',
+    data: value.loginData,
+    });
+    // yield put(reposLoaded(repos, username));
+  } catch (err) {
+    console.log(err)
+    // yield put(repoLoadingError(err));
+  }
+
+}
+
 export function* onLoginSubmit(value) {
   console.log(value.loginData);
   console.log(value.history);
-  axios({
-    method: 'post',
-    url: 'http://localhost:4000/user/authenticate',
-    data: value.loginData,
-  })
-  // value.history.push('/landing')
-    .then(response => {
-      history.push('/landing')
-      console.log('response ', response);
-      if (
-        !_.isEmpty(response) &&
-        typeof response.data !== 'undefined' &&
-        !_.isEmpty(response.data) &&
-        response.data.error !== 1
-      ) {
-        const loginDetails = {
-          token: response.data.token,
-        };
-        saveLocalStorage('loginDetails', loginDetails);
-      } else if (response.data.error === 1) {
-        console.log(response.data.data);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  // axios({
+  //   method: 'post',
+  //   url: 'http://localhost:4000/user/authenticate',
+  //   data: value.loginData,
+  // })
+  //   // value.history.push('/landing')
+  //   .then(response => {
+
+  //     console.log('response ', response);
+  //     if (
+  //       !_.isEmpty(response) &&
+  //       typeof response.data !== 'undefined' &&
+  //       !_.isEmpty(response.data) &&
+  //       response.data.error !== 1
+  //     ) {
+  //       const loginDetails = {
+  //         token: response.data.token,
+  //       };
+  //       saveLocalStorage('loginDetails', loginDetails);
+  //       // yield put(onAuth(true));
+
+  //     } else if (response.data.error === 1) {
+  //       console.log(response.data.data);
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+
+  // const requestURL = 'http://localhost:4000/user/authenticate'
+  // try {
+  //   // Call our request helper (see 'utils/request')
+  //   const repos = yield call(request, requestURL,{
+  //   method: 'post',
+  //   data: value.loginData,
+  //   });
+  
+  //   console.log(repos);
+  //   yield put(onAuth(true))
+  //       if (
+  //       !_.isEmpty(repos) &&
+  //       typeof repos.data !== 'undefined' &&
+  //       !_.isEmpty(repos.data) &&
+  //       repos.data.error !== 1
+  //     ) {
+  //   yield put(onAuth(true));}
+  // } catch (err) {
+  //   console.log(err)
+
+  //   // yield put(repoLoadingError(err));
+  // }
+
+
+  const requestURL = `https://api.github.com/users/harshbhama/repos?type=all&sort=updated`;
+
+  try {
+    // Call our request helper (see 'utils/request')
+    const repos = yield call(request, requestURL);
+    console.log(repos)
+    yield put(reposLoaded(repos, username));
+  } catch (err) {
+    yield put(repoLoadingError(err));
+  }
+
+
+
+
+
+
+
 }
 
 /**

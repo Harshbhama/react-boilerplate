@@ -15,7 +15,7 @@ export const getLocalStorage = key => {
     data !== null &&
     typeof data[0] !== 'undefined'
   ) {
-    return data[0];
+    return data[0].token;
   }
   return [];
 };

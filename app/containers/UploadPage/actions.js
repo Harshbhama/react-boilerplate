@@ -16,6 +16,9 @@
  */
 
 import { CHANGE_USERNAME, ON_CALL_UPLOAD } from './constants';
+import { saveLocalStorage, getToken, getLocalStorage } from 'components/Helper/Helper';
+import axios from 'axios';
+
 
 /**
  * Changes the input field of the form
@@ -31,22 +34,15 @@ export function changeUsername(username) {
   };
 }
 
-// export function onCallUpload(payload) {
-//   return {
-//     type: ON_CALL_UPLOAD,
-//     uploadData: payload,
-//   };
-// }
-export const onCallUpload = (payload) => {
+export const onCallUpload = (data) => {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
         url: 'http://localhost:4000/gst/upload',
-        data: data.uploadData,
+        data: data,
         headers: {
-          token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI',
+          token: (getLocalStorage('loginDetails')),
           'Content-Type': 'multipart/form-data',
         },
       })

@@ -36,7 +36,7 @@ export function* callUpload(data) {
     data: data.uploadData,
     headers: {
       token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImExQGdtYWlsLmNvbSIsImlhdCI6MTU4MzM4OTM5NywiZXhwIjoxNTgzNDAzNzk3fQ.eZyRHaDfAP63e-zN65YFcv0mja3gDiga-Pr1aWyACAI',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE1ODQwMzIwMzQsImV4cCI6MTU4NDA0NjQzNH0.tUGWvOzjrmAJAs2dOthTh-NNvYHlkBxmXjRHPQ7Hh14',
       'Content-Type': 'multipart/form-data',
     },
   })

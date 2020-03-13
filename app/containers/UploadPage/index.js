@@ -51,39 +51,50 @@ class UploadPage extends React.Component {
 
     this.state = {
       uploadFile: '',
+      onUpload: false
     };
   }
 
   onUploadButton() {
-    this.refs.fileUploader.click();
+ 
+     this.refs.fileUploader.click();
   }
 
   async onFileSelected(event) {
+
+    debugger
     console.log(event.target.files[0]);
     await this.setState({
       uploadFile: event.target.files[0],
     });
+
     const data = new FormData();
     await data.append('upfile', this.state.uploadFile);
     // data.append('type', owner);
     await console.log(data);
-
-    await onCallUpload(data);
     await this.props.onCallUpload(data);
+    await this.setState({
+      onUpload: false
+    })
   }
 
   render() {
     return (
       <div>
         <NavBar currentPage="Upload Form D" >
-        <input
-          type="file"
-          name="upfile"
-          ref="fileUploader"
-          onChange={this.onFileSelected}
-          style={{ display: 'none' }}
-        />
-    
+
+          <input
+            type="file"
+            name="upfile"
+            onChange={this.onFileSelected}
+            ref={"fileUploader"}
+            onClick={(event) => {
+              event.target.value = null
+            }}
+            style={{ display: 'none' }}
+          />
+
+
           <Button
             variant="contained"
             color="primary"
@@ -116,7 +127,7 @@ class UploadPage extends React.Component {
             nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
             accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        
+
         </NavBar>
       </div>
     );

@@ -39,25 +39,84 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import styles from '../../style.css';
+import gstLogin1 from 'images/gstLogin1.jpg';
+import csvImage from 'images/csv_export_2.png'
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import SpreadSheet from 'react-spreadsheet-component'
+import Table from './MaterialTable'
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import BootTable from './BootTable'
+import BootTableNew from './BootTableNew'
 // import Button from 'react-bootstrap/Button';
 const key = 'home';
+
+const data = [
+  { "ID": 0, "Name": 'Harsh', "Price": 10 },
+  { "ID": 2, "Name": 'Bhama', "Price": 10 }
+]
 
 class UploadPage extends React.Component {
   constructor(props) {
     super(props);
     this.onUploadButton = this.onUploadButton.bind(this);
     this.onFileSelected = this.onFileSelected.bind(this);
+    this.onFetch = this.onFetch.bind(this)
+    this.inCellClick = this.inCellClick.bind(this)
+    this.onSubmitRow = this.onSubmitRow.bind(this)
 
     this.state = {
       uploadFile: '',
-      onUpload: false
+      onUpload: false,
+      responseData: ''
     };
   }
 
+
+  async onFetch() {
+    var responseData = ''
+    debugger
+    await axios({
+      method: 'post',
+      url: 'http://localhost:4000/gst/uploadVal',
+      data: '1',
+      // headers: {
+      //   token: (getLocalStorage('loginDetails')),
+      //   'Content-Type': 'multipart/form-data',
+      // },
+    })
+      .then(response => {
+        console.log('response ', response);
+
+        responseData = response.data.responseJson
+
+      })
+      .catch(error => {
+        console.log(error);
+
+      });
+
+    await this.setState({
+      responseData: responseData
+    })
+
+    console.log(this.state.responseData)
+
+
+  }
+
+
+  async inCellClick(val) {
+    console.log(val)
+
+  }
   onUploadButton() {
- 
-     this.refs.fileUploader.click();
+
+    this.refs.fileUploader.click();
   }
 
   async onFileSelected(event) {
@@ -78,7 +137,14 @@ class UploadPage extends React.Component {
     })
   }
 
+  async onSubmitRow(cell, row, index, extraData) {
+    debugger
+    console.log(row)
+  }
+
+
   render() {
+
     return (
       <div>
         <NavBar currentPage="Upload Form D" >
@@ -95,39 +161,60 @@ class UploadPage extends React.Component {
           />
 
 
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             onClick={this.onUploadButton}
             style={{ backgroundColor: '#4f2d7f' }}
           >
             Upload Form D
+          </Button> */}
+          <Card className="card-1" onClick={this.onUploadButton}>
+            <CardActionArea>
+              <CardMedia
+                // className={classes.media}
+                style={{ height: '140px' }}
+                image={csvImage}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Upload Form D
+            </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Provides interoperability and uniform interpretation across the
+                  entire GST eco-system and allows submission of an already
+              generated standard invoice on a common portal{' '}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Upload
           </Button>
+              <Button size="small" color="primary">
+                Learn More
+          </Button>
+            </CardActions>
+          </Card>
 
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-            facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-            gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-            donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-            Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-            imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-            arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-        </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-            facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-            tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-            consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-            vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-            hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-            tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-            nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+          <Button onClick={this.onFetch}>Fetch</Button>
+          <div>
+            <BootTable
+              data={data}
+              onSubmitRow={this.onSubmitRow}
 
+            />
+
+          </div>
+          { this.state.responseData &&
+            <div>
+              <BootTableNew
+                data={this.state.responseData}
+                onSubmitRow={this.onSubmitRow}
+              />
+            </div>
+          }
         </NavBar>
       </div>
     );

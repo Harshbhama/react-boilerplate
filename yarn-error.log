@@ -1,5 +1,5 @@
 Arguments: 
-  /home/parikshit/.nvm/versions/node/v8.15.1/bin/node /home/parikshit/.nvm/versions/node/v8.15.1/bin/yarn add redux-thunk
+  /home/parikshit/.nvm/versions/node/v8.15.1/bin/node /home/parikshit/.nvm/versions/node/v8.15.1/bin/yarn add react-bootstrap-table-next
 
 PATH: 
   /home/parikshit/.nvm/versions/node/v8.15.1/bin:/home/parikshit/bin:/home/parikshit/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -122,10 +122,12 @@ npm manifest:
       "react-redux-form": "^1.16.14",
       "react-router-dom": "5.0.0",
       "react-smooth-image": "^1.1.0",
+      "react-spreadsheet-component": "^1.0.2",
       "react-transition-group": "^4.3.0",
       "redux": "4.0.1",
       "redux-form": "^8.3.1",
       "redux-saga": "1.0.2",
+      "redux-thunk": "^2.3.0",
       "reselect": "4.0.0",
       "sanitize.css": "8.0.0",
       "styled-components": "4.2.0"
@@ -8654,6 +8656,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.2.0.tgz#53e448ec9d263e683266467e9442d2c5a2ef5482"
     integrity sha1-U+RI7J0mPmgyZkZ+lELSxaLvVII=
   
+  jquery@^2.1:
+    version "2.2.4"
+    resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
+    integrity sha1-LInWiJterFIqfuoywUUhVZxsvwI=
+  
   js-base64@^2.1.8:
     version "2.5.2"
     resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"
@@ -9865,6 +9872,11 @@ Lockfile:
     version "2.24.0"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
     integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+  
+  mousetrap@^1.5.3:
+    version "1.6.5"
+    resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
+    integrity sha512-QNo4kEepaIBwiT8CDhP98umTetp+JNfQYBWvC1pc6/OAibuXtRcxZ58Qz8skvEHYvURne/7R8T5VoOI7rDsEUA==
   
   move-concurrently@^1.0.1:
     version "1.0.1"
@@ -12560,6 +12572,14 @@ Lockfile:
     dependencies:
       prop-types "^15.6.2"
   
+  react-spreadsheet-component@^1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/react-spreadsheet-component/-/react-spreadsheet-component-1.0.2.tgz#08b0a8421efa69a70faeb40ce00745a9dcf35056"
+    integrity sha512-G1Rr1zT/SZonK/e1/oEQgNLQxiUE1N0XGQfYKi0UmO6d0TfEv1fx8gJgNZmLbmcthQqtvj5rPpGO607f3srqAw==
+    dependencies:
+      jquery "^2.1"
+      mousetrap "^1.5.3"
+  
   react-swipeable-views-core@^0.13.1, react-swipeable-views-core@^0.13.7:
     version "0.13.7"
     resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.13.7.tgz#c082b553f26e83fd20fc17f934200eb717023c8a"
@@ -12833,6 +12853,11 @@ Lockfile:
     integrity sha512-dHV256by3eF2AnBPx1l3HqazQFkErZ82HDXgh4jSRpT72OrX31wyg8DA1q8+0HvENRfJAyhT/4qT5yH/vVqFfw==
     dependencies:
       "@redux-saga/core" "^1.0.2"
+  
+  redux-thunk@^2.3.0:
+    version "2.3.0"
+    resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+    integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
   
   redux@4.0.1:
     version "4.0.1"

@@ -1,3 +1,5 @@
+
+
 .button{
     padding-left: 1px;
 }
@@ -14,3 +16,7 @@
   .CrossfadeImage{
     position: initial !important;
   }
+
+.react-bootstrap-table{
+    width: 1500%;
+}
